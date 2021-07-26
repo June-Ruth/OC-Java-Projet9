@@ -1,8 +1,8 @@
 package com.openclassrooms.mediscreen.service;
 
+import com.openclassrooms.mediscreen.exception.ElementNotFoundException;
 import com.openclassrooms.mediscreen.model.Patient;
 import com.openclassrooms.mediscreen.repository.PatientRepository;
-import com.openclassrooms.mediscreen.repository.PatientServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -46,4 +48,36 @@ public class PatientServiceTest {
         verify(patientRepository, times(1)).findAll();
     }
 
+    // FIND PATIENT BY ID //
+
+    @Test
+    void findExistingPatientByIdTest() {
+        when(patientRepository.findById(anyInt())).thenReturn(Optional.of(patient1));
+        patientService.findPatientById(1);
+        verify(patientRepository, times(1)).findById(1);
+    }
+
+    @Test
+    void findNonExistentPatientByIdTest() {
+        when(patientRepository.findById(anyInt())).thenReturn(Optional.empty());
+        assertThrows(ElementNotFoundException.class, () -> patientService.findPatientById(1));
+    }
+
+    // SAVE PATIENT //
+
+    @Test
+    void savePatientTest() {
+        when(patientRepository.save(any(Patient.class))).thenReturn(patient1);
+        patientService.savePatient(patient1);
+        verify(patientRepository, times(1)).save(patient1);
+    }
+
+    // DELETE BID LIST TEST //
+
+    @Test
+    void deletePatientTest() {
+        doNothing().when(patientRepository).deleteById(anyInt());
+        patientService.deletePatient(1);
+        verify(patientRepository, times(1)).deleteById(1);
+    }
 }

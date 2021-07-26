@@ -11,4 +11,10 @@ public interface PatientService {
      * @return List of all patients
      */
     List<Patient> findAllPatients();
+
+    Patient findPatientById(Integer id);
+
+    Patient savePatient(Patient newPatient);
+
+    void deletePatient(Integer id);
 }
