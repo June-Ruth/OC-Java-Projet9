@@ -45,12 +45,10 @@ public class Patient {
     @Column(name = "sex")
     private char sex;
 
-    @NotBlank(message = FIELD_IS_MANDATORY)
     @Size(max = HUNDRED, message = TOO_MUCH_CHARACTERS)
     @Column(name = "address")
     private String address;
 
-    @NotBlank(message = FIELD_IS_MANDATORY)
     @Size(max = FIFTEEN, message = TOO_MUCH_CHARACTERS)
     @Column(name = "phone")
     private String phone;
