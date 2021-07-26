@@ -1,7 +1,15 @@
 package com.openclassrooms.mediscreen.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -28,11 +36,12 @@ public class Patient {
     @Column(name = "given")
     private String given;
 
-    @NotBlank(message = FIELD_IS_MANDATORY)
+    @NotNull(message = FIELD_IS_MANDATORY)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @NotBlank(message = FIELD_IS_MANDATORY)
+    @NotNull(message = FIELD_IS_MANDATORY)
     @Column(name = "sex")
     private char sex;
 
