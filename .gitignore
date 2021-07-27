@@ -38,3 +38,4 @@ out/
 
 ### Logger ###
 *.log
+*.gz

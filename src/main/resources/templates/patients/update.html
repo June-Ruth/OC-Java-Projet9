@@ -71,7 +71,7 @@
 
             <div class="form-group">
                 <div>
-                    <a class="btn btn-danger btn-sm" href="/patients/list">Cancel</a>
+                    <a class="btn btn-danger btn-sm" th:href="@{/patients/profile/{id}(id=${patient.id})}">Cancel</a>
                     <input class="btn btn-primary btn-sm" type="submit" value="Update Patient">
                 </div>
             </div>

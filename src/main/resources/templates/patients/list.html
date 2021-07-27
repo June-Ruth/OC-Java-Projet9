@@ -25,24 +25,17 @@
                 <th>Family</th>
                 <th>Given</th>
                 <th>Date of birth</th>
-                <th>Sex</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="patient : ${patientList}">
-                <td th:text="${patient.family}"></td>
+                <td >
+                    <a th:href="@{/patients/profile/{id}(id=${patient.id})}">
+                        <span th:text="${patient.family}"></span>
+                    </a>
+                </td>
                 <td th:text="${patient.given}"></td>
                 <td th:text="${patient.dateOfBirth}"></td>
-                <td th:text="${patient.sex}"></td>
-                <td th:text="${patient.address}"></td>
-                <td th:text="${patient.phone}"></td>
-                <td style="width: 15%" class="text-center">
-                    <a th:href="@{/patients/update/{id}(id=${patient.id})}">Edit</a>
-                    <a th:href="@{/patients/delete/{id}(id=${patient.id})}">Delete</a>
-                </td>
             </tr>
             </tbody>
         </table>

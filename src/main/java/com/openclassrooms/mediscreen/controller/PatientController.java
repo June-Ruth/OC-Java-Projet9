@@ -32,6 +32,14 @@ public class PatientController {
         return "patients/list";
     }
 
+    @GetMapping("/patients/profile/{id}")
+    public String getPatient(@PathVariable final Integer id,
+                             final Model model) {
+        LOGGER.info("Getting patient with id : " + id);
+        model.addAttribute("patient", patientService.findPatientById(id));
+        return "patients/profile";
+    }
+
     @GetMapping("/patients/add")
     public String addPatientForm(final Patient patient) {
         LOGGER.info("Show form to add patient");
@@ -73,7 +81,7 @@ public class PatientController {
             patient.setAddress(updatedPatient.getAddress());
             patient.setPhone(updatedPatient.getPhone());
             patientService.savePatient(patient);
-            return "redirect:/patients/list";
+            return "redirect:/patients/profile/{id}";
         }
         updatedPatient.setId(id);
         return "patients/update";
