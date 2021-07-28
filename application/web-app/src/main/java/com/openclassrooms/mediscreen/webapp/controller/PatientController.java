@@ -79,7 +79,7 @@ public class PatientController {
             patient.setSex(updatedPatient.getSex());
             patient.setAddress(updatedPatient.getAddress());
             patient.setPhone(updatedPatient.getPhone());
-            patientService.savePatient(patient);
+            patientService.updatePatient(patient);
             return "redirect:/patients/profile/{id}";
         }
         updatedPatient.setId(id);

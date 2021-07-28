@@ -1,12 +1,14 @@
 package com.openclassrooms.mediscreen.webapp.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,42 +18,32 @@ import static com.openclassrooms.mediscreen.webapp.constant.ErrorMessage.FIELD_I
 import static com.openclassrooms.mediscreen.webapp.constant.ErrorMessage.TOO_MUCH_CHARACTERS;
 import static com.openclassrooms.mediscreen.webapp.constant.Number.*;
 
-@Entity
-@Table(name = "patient")
 public class Patient {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "patient_id")
     private Integer id;
 
     @NotBlank(message = FIELD_IS_MANDATORY)
     @Size(max = TWENTY, message = TOO_MUCH_CHARACTERS)
-    @Column(name = "family")
     private String family;
 
     @NotBlank(message = FIELD_IS_MANDATORY)
     @Size(max = TWENTY, message = TOO_MUCH_CHARACTERS)
-    @Column(name = "given")
     private String given;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull(message = FIELD_IS_MANDATORY)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
     @NotNull(message = FIELD_IS_MANDATORY)
-    @Column(name = "sex")
     private char sex;
 
     @Size(max = HUNDRED, message = TOO_MUCH_CHARACTERS)
-    @Column(name = "address")
     private String address;
 
     @Size(max = FIFTEEN, message = TOO_MUCH_CHARACTERS)
-    @Column(name = "phone")
     private String phone;
 
     public Patient(final String family1,
