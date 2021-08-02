@@ -27,9 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class PatientControllerIT {
 
-    /*
-    Before running IT, make sure that schema test was init.
-     */
+    /* Before running IT, make sure that schema test was init. */
 
     @Autowired
     private MockMvc mockMvc;
