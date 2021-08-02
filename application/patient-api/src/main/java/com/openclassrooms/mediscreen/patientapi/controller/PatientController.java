@@ -63,6 +63,7 @@ public class PatientController {
     public Patient updatePatient(@PathVariable final Integer id,
                                  @RequestBody final Patient updatedPatient) {
         LOGGER.info("Updating patient with id " + id);
+        updatedPatient.setId(id);
         return patientService.savePatient(updatedPatient);
     }
 
