@@ -83,7 +83,7 @@ public class PatientServiceImpl implements PatientService {
         LOGGER.info("Updating patient with id : " + updatedPatient.getId());
         return webClientPatient
                 .put()
-                .uri("/patients/" + updatedPatient)
+                .uri("/patients/" + updatedPatient.getId())
                 .body(Mono.just(updatedPatient), Patient.class)
                 .exchangeToMono(clientResponse -> {
                     if(clientResponse.statusCode().equals(HttpStatus.OK)) {
