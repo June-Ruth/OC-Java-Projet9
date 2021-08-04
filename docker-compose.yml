@@ -1,0 +1,30 @@
+version: '3.9'
+
+networks:
+  backend-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+services:
+  patient-microservice:
+    build:
+      context: ./
+      dockerfile: Dockerfile-patient-microservice
+    ports:
+      - "8081:8081"
+    networks:
+      backend-network:
+        ipv4_address: 172.20.0.2
+
+  webapp:
+    depends_on:
+      - patient-microservice
+    build:
+      context: ./
+      dockerfile: Dockerfile-webapp
+    ports:
+      - "8080:8080"
+    networks:
+      backend-network:
+        ipv4_address: 172.20.0.10

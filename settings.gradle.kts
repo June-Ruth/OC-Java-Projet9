@@ -2,7 +2,7 @@ rootProject.name = "Mediscreen"
 
 subdir("application") {
     include("web-app")
-    include("patient-api")
+    include("patient-microservice")
 }
 
 subdir("core-librairies") {

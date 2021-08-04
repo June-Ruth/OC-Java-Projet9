@@ -21,7 +21,7 @@ subprojects {
         tasks.test {
             useJUnitPlatform()
             finalizedBy(tasks.jacocoTestReport)
-            //exclude("**/*IT.class")
+            exclude("**/*IT.class")
         }
 
         tasks.jacocoTestReport {

@@ -15,10 +15,20 @@ import java.util.List;
 @Service
 public class PatientServiceImpl implements PatientService {
 
+    /**
+     * @see Logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceImpl.class);
 
+    /**
+     * @see WebClient
+     */
     private final WebClient webClientPatient;
 
+    /**
+     * Public constructor.
+     * @param webClientPatient1 to call patient microservice
+     */
     public PatientServiceImpl(@Qualifier("getWebClientPatient") final WebClient webClientPatient1) {
         webClientPatient = webClientPatient1;
     }
@@ -47,9 +57,9 @@ public class PatientServiceImpl implements PatientService {
         return webClientPatient
                 .get().uri("/patients/" + id)
                 .exchangeToMono(clientResponse -> {
-                    if(clientResponse.statusCode().equals(HttpStatus.OK)) {
+                    if (clientResponse.statusCode().equals(HttpStatus.OK)) {
                         return clientResponse.bodyToMono(Patient.class);
-                    } else if(clientResponse.statusCode().equals(HttpStatus.NOT_FOUND)) {
+                    } else if (clientResponse.statusCode().equals(HttpStatus.NOT_FOUND)) {
                         throw new ElementNotFoundException("Patient with id " + id + " is not found.");
                     } else {
                         return clientResponse.createException().flatMap(Mono::error);
@@ -69,7 +79,7 @@ public class PatientServiceImpl implements PatientService {
                 .uri("/patients")
                 .body(Mono.just(patient), Patient.class)
                 .exchangeToMono(clientResponse -> {
-                    if(clientResponse.statusCode().equals(HttpStatus.OK)) {
+                    if (clientResponse.statusCode().equals(HttpStatus.OK)) {
                         return clientResponse.bodyToMono(Patient.class);
                     } else {
                         return clientResponse.createException().flatMap(Mono::error);
@@ -79,14 +89,14 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient updatePatient(Patient updatedPatient) {
+    public Patient updatePatient(final Patient updatedPatient) {
         LOGGER.info("Updating patient with id : " + updatedPatient.getId());
         return webClientPatient
                 .put()
                 .uri("/patients/" + updatedPatient.getId())
                 .body(Mono.just(updatedPatient), Patient.class)
                 .exchangeToMono(clientResponse -> {
-                    if(clientResponse.statusCode().equals(HttpStatus.OK)) {
+                    if (clientResponse.statusCode().equals(HttpStatus.OK)) {
                         return clientResponse.bodyToMono(Patient.class);
                     } else {
                         return clientResponse.createException().flatMap(Mono::error);
@@ -103,8 +113,8 @@ public class PatientServiceImpl implements PatientService {
         LOGGER.info("Deleting patient with id : " + id);
         webClientPatient
                 .delete()
-                .uri("/patients" + id)
+                .uri("/patients/" + id)
                 .retrieve()
-                .bodyToMono(Void.class);
+                .bodyToMono(Void.class).block();
     }
 }

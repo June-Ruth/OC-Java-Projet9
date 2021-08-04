@@ -1,4 +1,4 @@
-package com.openclassrooms.mediscreen.webapp.model;
+package com.openclassrooms.mediscreen.patientmicroservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -7,20 +7,26 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-import static com.openclassrooms.mediscreen.webapp.constant.ErrorMessage.FIELD_IS_MANDATORY;
-import static com.openclassrooms.mediscreen.webapp.constant.ErrorMessage.TOO_MUCH_CHARACTERS;
-import static com.openclassrooms.mediscreen.webapp.constant.Number.*;
+import static com.openclassrooms.mediscreen.patientmicroservice.constant.ErrorMessage.FIELD_IS_MANDATORY;
+import static com.openclassrooms.mediscreen.patientmicroservice.constant.ErrorMessage.TOO_MUCH_CHARACTERS;
+import static com.openclassrooms.mediscreen.patientmicroservice.constant.Number.*;
 
+@Entity
+@Table(name = "patients")
 public class Patient {
 
     /**
      * ID. Auto-generated.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "patient_id")
     private Integer id;
 
     /**
@@ -28,6 +34,7 @@ public class Patient {
      */
     @NotBlank(message = FIELD_IS_MANDATORY)
     @Size(max = TWENTY, message = TOO_MUCH_CHARACTERS)
+    @Column(name = "family")
     private String family;
 
     /**
@@ -35,6 +42,7 @@ public class Patient {
      */
     @NotBlank(message = FIELD_IS_MANDATORY)
     @Size(max = TWENTY, message = TOO_MUCH_CHARACTERS)
+    @Column(name = "given")
     private String given;
 
     /**
@@ -45,24 +53,28 @@ public class Patient {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull(message = FIELD_IS_MANDATORY)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
     /**
      * Sex / Gender.
      */
     @NotNull(message = FIELD_IS_MANDATORY)
+    @Column(name = "sex")
     private char sex;
 
     /**
      * Address.
      */
     @Size(max = HUNDRED, message = TOO_MUCH_CHARACTERS)
+    @Column(name = "address")
     private String address;
 
     /**
      * Phone.
      */
     @Size(max = FIFTEEN, message = TOO_MUCH_CHARACTERS)
+    @Column(name = "phone")
     private String phone;
 
     /**

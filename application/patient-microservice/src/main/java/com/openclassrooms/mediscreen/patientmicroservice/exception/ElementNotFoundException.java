@@ -1,4 +1,4 @@
-package com.openclassrooms.mediscreen.webapp.exception;
+package com.openclassrooms.mediscreen.patientmicroservice.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

@@ -1,6 +1,6 @@
-package com.openclassrooms.mediscreen.webapp.service;
+package com.openclassrooms.mediscreen.patientmicroservice.service;
 
-import com.openclassrooms.mediscreen.webapp.model.Patient;
+import com.openclassrooms.mediscreen.patientmicroservice.model.Patient;
 
 import java.util.List;
 
@@ -21,18 +21,11 @@ public interface PatientService {
     Patient findPatientById(Integer id);
 
     /**
-     * Save new patient.
+     * Save new patient or update existing patient.
      * @param newPatient to save
      * @return patient saved
      */
     Patient savePatient(Patient newPatient);
-
-    /**
-     * Update existing patient.
-     * @param updatedPatient to update
-     * @return patient updated
-     */
-    Patient updatePatient(Patient updatedPatient);
 
     /**
      * Delete patient by its id.

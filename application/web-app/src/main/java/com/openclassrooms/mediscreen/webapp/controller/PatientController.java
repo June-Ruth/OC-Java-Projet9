@@ -14,15 +14,29 @@ import java.util.List;
 
 @Controller
 public class PatientController {
-
+    /**
+     * @see Logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
 
+    /**
+     * @see PatientService
+     */
     private final PatientService patientService;
 
+    /**
+     * Public constructor.
+     * @param patientService1 .
+     */
     public PatientController(final PatientService patientService1) {
         patientService = patientService1;
     }
 
+    /**
+     * Get all patient on page.
+     * @param model .
+     * @return page with all patient as list
+     */
     @GetMapping("/patients/list")
     public String getAllPatients(final Model model) {
         LOGGER.info("Getting all patients.");
@@ -31,6 +45,12 @@ public class PatientController {
         return "patients/list";
     }
 
+    /**
+     * Get patient information.
+     * @param id of patient searched
+     * @param model .
+     * @return patient information
+     */
     @GetMapping("/patients/profile/{id}")
     public String getPatient(@PathVariable final Integer id,
                              final Model model) {
@@ -39,24 +59,42 @@ public class PatientController {
         return "patients/profile";
     }
 
+    /**
+     * Show the form to complete to add a new patient.
+     * @param patient .
+     * @return form to add patient
+     */
     @GetMapping("/patients/add")
     public String addPatientForm(final Patient patient) {
         LOGGER.info("Show form to add patient");
         return "patients/add";
     }
 
+    /**
+     * Validate the form to add a new patient.
+     * @param patient with its information
+     * @param result .
+     * @param model .
+     * @return patient list page
+     */
     @PostMapping("/patients/validate")
     public String validateNewPatient(@Valid final Patient patient,
                                      final BindingResult result,
-                                     final Model mode) {
+                                     final Model model) {
         LOGGER.info("Saving new patient");
-        if(!result.hasErrors()){
-            Patient patient1 = patientService.savePatient(patient);
+        if (!result.hasErrors()) {
+            patientService.savePatient(patient);
             return "redirect:/patients/list";
         }
         return "patients/add";
     }
 
+    /**
+     * Show form to update a patient.
+     * @param id of patient searched
+     * @param model .
+     * @return the form to update fullfil with actual patient information
+     */
     @GetMapping("/patients/update/{id}")
     public String showUpdateForm(@PathVariable final Integer id,
                                  final Model model) {
@@ -65,13 +103,21 @@ public class PatientController {
         return "patients/update";
     }
 
+    /**
+     * Validate update form of a patient.
+     * @param id of updated patient
+     * @param updatedPatient with nw information
+     * @param result .
+     * @param model .
+     * @return the patient information page
+     */
     @PostMapping("/patients/update/{id}")
     public String updatePatient(@PathVariable final Integer id,
                                 @Valid final Patient updatedPatient,
                                 final BindingResult result,
                                 final Model model) {
         LOGGER.info("Updating patient with id : " + id);
-        if(!result.hasErrors()) {
+        if (!result.hasErrors()) {
             Patient patient = patientService.findPatientById(id);
             patient.setFamily(updatedPatient.getFamily());
             patient.setGiven(updatedPatient.getGiven());
@@ -86,6 +132,12 @@ public class PatientController {
         return "patients/update";
     }
 
+    /**
+     * Delete a patient.
+     * @param id of patient to delete
+     * @param model .
+     * @return patient list
+     */
     @GetMapping("/patients/delete/{id}")
     public String deletePatient(@PathVariable final Integer id,
                                 final Model model) {

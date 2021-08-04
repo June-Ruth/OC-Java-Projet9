@@ -1,4 +1,4 @@
-package com.openclassrooms.mediscreen.webapp.constant;
+package com.openclassrooms.mediscreen.patientmicroservice.constant;
 
 public final class ErrorMessage {
     /**
