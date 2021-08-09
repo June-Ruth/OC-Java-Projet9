@@ -23,6 +23,20 @@ services:
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
       - mysql_db_data_container:/var/lib/mysql
 
+  mongo:
+    image: mongo:4
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    networks:
+      backend-network:
+        ipv4_address: 172.20.0.4
+    volumes:
+      - mongo_db_data_container:/var/lib/mongo
+
   patient-microservice:
     depends_on:
       - mysql
@@ -68,3 +82,4 @@ volumes:
   mysql_db_data_container:
   patient_microservice_container:
   web_app_container:
+  mongo_db_data_container:
