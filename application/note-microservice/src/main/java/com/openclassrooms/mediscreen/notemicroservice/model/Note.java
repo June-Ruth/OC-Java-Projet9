@@ -1,5 +1,10 @@
 package com.openclassrooms.mediscreen.notemicroservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -7,7 +12,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigInteger;
 import java.time.LocalDate;
+
+import static com.openclassrooms.mediscreen.notemicroservice.constant.ErrorMessage.FIELD_IS_MANDATORY;
 
 @Document(collection = "note")
 public class Note {
@@ -15,29 +23,36 @@ public class Note {
      * ID of the note.
      */
     @Id
-    private String id;
+    private BigInteger id;
     /**
      * ID of the patient concerned by the note.
      */
-    @NotNull
+    @NotNull(message = FIELD_IS_MANDATORY)
     @Field(value = "patient_id")
     private Integer patientId;
     /**
      * Date of creation of the note.
      */
-    @NotNull
+    @NotNull(message = FIELD_IS_MANDATORY)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Field(value = "creation_date")
     private LocalDate creationDate;
     /**
      * Date of the last modification of the note.
      */
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Field(value = "last_modification_date")
     private LocalDate lastModificationDate;
     /**
      * Content of the note.
      */
-    @NotBlank
+    @NotBlank(message = FIELD_IS_MANDATORY)
     @Field(value = "content")
     private String content;
 
@@ -67,7 +82,7 @@ public class Note {
      * Getter ID.
      * @return ID
      */
-    public String getId() {
+    public BigInteger getId() {
         return id;
     }
 
@@ -75,7 +90,7 @@ public class Note {
      * Setter ID.
      * @param id1 to set
      */
-    public void setId(final String id1) {
+    public void setId(final BigInteger id1) {
         id = id1;
     }
 
