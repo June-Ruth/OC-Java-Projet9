@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Mediscreen</title>
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <a href="/home">Home</a>&nbsp;|&nbsp;
+      <a href="/patients/list">Patients</a>&nbsp;|&nbsp;
+    </div>
+  </div>
+  <h2 th:text="${patient.family}"></h2>
+  <h2 th:text="${patient.given}"></h2>
+
+  <div class="row">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Family</th>
+        <th>Given</th>
+        <th>Date of birth</th>
+        <th>Sex</th>
+        <th>Address</th>
+        <th>Phone</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:object="${patient}">
+        <td th:text="${patient.family}"></td>
+        <td th:text="${patient.given}"></td>
+        <td th:text="${patient.dateOfBirth}"></td>
+        <td th:text="${patient.sex}"></td>
+        <td th:text="${patient.address}"></td>
+        <td th:text="${patient.phone}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="form-group">
+    <div>
+      <a class="btn btn-info btn-sm" href="/patients/list">Return</a>
+      <a class="btn btn-primary btn-sm" th:href="@{/patients/update/{id}(id=${patient.id})}">Edit</a>
+      <a class="btn btn-danger btn-sm" th:href="@{/patients/delete/{id}(id=${patient.id})}">Delete</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+
+

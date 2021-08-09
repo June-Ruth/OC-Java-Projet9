@@ -1,0 +1,70 @@
+version: '3.9'
+
+networks:
+  backend-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+services:
+  mysql :
+    image: mysql:8
+    container_name: mediscreen_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_USERNAME: root
+    ports:
+      - "13306:3306"
+    networks:
+      backend-network:
+        ipv4_address: 172.20.0.3
+    volumes:
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_db_data_container:/var/lib/mysql
+
+  patient-microservice:
+    depends_on:
+      - mysql
+    build:
+      context: ./
+      dockerfile: Dockerfile-patient-microservice
+    image: patient_microservice
+    container_name: mediscreen_patient_microservice
+    restart: always
+    environment:
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_URL : jdbc:mysql://mediscreen_mysql:3306/demo?serverTimezone=UTC
+      SPRING_PROFILES_ACTIVE : demo
+    ports:
+      - "8081:8081"
+    networks:
+      backend-network:
+        ipv4_address: 172.20.0.2
+    volumes:
+      - patient_microservice_container:/var/lib/patient
+
+  webapp:
+    depends_on:
+      - patient-microservice
+    build:
+      context: ./
+      dockerfile: Dockerfile-web-app
+    image: web_app
+    container_name: mediscreen_web_app
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE : demo
+    ports:
+      - "8080:8080"
+    networks:
+      backend-network:
+        ipv4_address: 172.20.0.10
+    volumes:
+      - web_app_container:/var/lib/webapp
+
+volumes:
+  mysql_db_data_container:
+  patient_microservice_container:
+  web_app_container:

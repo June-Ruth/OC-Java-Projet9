@@ -1,0 +1,18 @@
+# syntax=docker/dockerfile:1
+
+FROM gradle:7.1.1-jdk11 AS build
+
+COPY --chown=gradle:gradle . /buildDir
+
+WORKDIR /buildDir
+RUN gradle :web-app:build --no-daemon
+
+FROM openjdk:11-jre-slim
+
+EXPOSE 8080
+
+RUN mkdir /app
+
+COPY --from=build /buildDir/application/web-app/build/libs/*.jar /app/web-app.jar
+
+ENTRYPOINT ["java", "-jar", "/app/web-app.jar"]

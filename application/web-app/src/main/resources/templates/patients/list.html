@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mediscreen</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <a href="/home">Home</a>&nbsp;|&nbsp;
+            <a href="/patients/list">Patients</a>&nbsp;|&nbsp;
+        </div>
+    </div>
+    <h1> Patients </h1>
+    <a href="/patients/add" class="btn btn-primary btn-sm">Add new patient</a>
+
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Family</th>
+                <th>Given</th>
+                <th>Date of birth</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient : ${patientList}">
+                <td >
+                    <a th:href="@{/patients/profile/{id}(id=${patient.id})}">
+                        <span th:text="${patient.family}"></span>
+                    </a>
+                </td>
+                <td th:text="${patient.given}"></td>
+                <td th:text="${patient.dateOfBirth}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
