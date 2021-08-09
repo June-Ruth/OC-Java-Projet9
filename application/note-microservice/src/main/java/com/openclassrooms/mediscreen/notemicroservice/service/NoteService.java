@@ -9,7 +9,7 @@ public interface NoteService {
     /**
      * Find a note by its id.
      * @param id of note concerned
-     * @return note found - if doesn't exist, throw ElementNotFoundException
+     * @return note found - if it doesn't exist, throw ElementNotFoundException
      */
     Note findNoteById(BigInteger id);
 
