@@ -95,7 +95,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE : demo
       PATIENT_HOST : 172.20.0.2
-      NOTE_HOST : 172.20.0.4
+      NOTE_HOST : 172.20.0.5
     ports:
       - "8080:8080"
     networks:

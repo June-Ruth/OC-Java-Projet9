@@ -50,7 +50,7 @@ public class NoteController {
 
     /**
      * Validate the form to add a new note.
-     * @param patientId .
+     * @param patientId concerned by the note
      * @param note with its information
      * @param result .
      * @param model .
@@ -70,54 +70,55 @@ public class NoteController {
         return "patients/notes/add";
     }
 
-/*    *//**
+    /**
      * Show form to update a patient.
-     * @param id of patient searched
+     * @param patientId of patient concerned
+     * @param id of the note concerned
      * @param model .
-     * @return the form to update fullfil with actual patient information
-     *//*
-    @GetMapping("/patients/update/{id}")
-    public String showUpdateNoteForm(@PathVariable final Integer id,
-                                 final Model model) {
-        LOGGER.info("Show form for update");
-        model.addAttribute("patient", patientService.findPatientById(id));
-        return "patients/update";
+     * @return the form to update fulfill with actual patient information
+     */
+    @GetMapping("/patients/{patientId}/notes/update/{id}")
+    public String showUpdateNoteForm(@PathVariable final Integer patientId,
+                                     @PathVariable final BigInteger id,
+                                     final Model model) {
+        LOGGER.info("Show form to update note");
+        model.addAttribute("note", noteService.findNoteById(id));
+        return "patients/notes/update";
     }
 
-    *//**
-     * Validate update form of a patient.
-     * @param id of updated patient
-     * @param updatedPatient with nw information
+    /**
+     * Validate update form of a note.
+     * @param patientId of patient concerned
+     * @param id of updated note
+     * @param updatedNote with new information
      * @param result .
      * @param model .
      * @return the patient information page
-     *//*
-    @PostMapping("/patients/update/{id}")
-    public String updatePatient(@PathVariable final Integer id,
-                                @Valid final Patient updatedPatient,
+     */
+    @PostMapping("/patients/{patientId}/notes/update/{id}")
+    public String updateNote(@PathVariable final Integer patientId,
+                                @PathVariable final BigInteger id,
+                                final Note updatedNote,
                                 final BindingResult result,
                                 final Model model) {
         LOGGER.info("Updating patient with id : " + id);
         if (!result.hasErrors()) {
-            Patient patient = patientService.findPatientById(id);
-            patient.setFamily(updatedPatient.getFamily());
-            patient.setGiven(updatedPatient.getGiven());
-            patient.setDateOfBirth(updatedPatient.getDateOfBirth());
-            patient.setSex(updatedPatient.getSex());
-            patient.setAddress(updatedPatient.getAddress());
-            patient.setPhone(updatedPatient.getPhone());
-            patientService.updatePatient(patient);
-            return "redirect:/patients/profile/{patientId}";
+            Note note = noteService.findNoteById(id);
+            note.setContent(updatedNote.getContent());
+            note.setCreationDate(updatedNote.getCreationDate());
+            note.setLastModificationDate(LocalDate.now());
+            noteService.updateNote(note);
+            return "redirect:/patients/profile/" + patientId;
         }
-        updatedPatient.setId(id);
-        return "patients/update";
-    }*/
+        updatedNote.setId(id);
+        return "patients/notes/update";
+    }
 
     /**
-     * Delete a patient.
-     * @param id of patient to delete
+     * Delete a note.
+     * @param id of note to delete
      * @param model .
-     * @return patient list
+     * @return note list
      */
     @GetMapping("/patients/{patientId}/notes/delete/{id}")
     public String deleteNote(@PathVariable final Integer patientId,

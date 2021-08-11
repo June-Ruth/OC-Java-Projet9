@@ -59,6 +59,22 @@ public class NoteControllerTest {
                 .andExpect(status().isOk());
     }
 
+    // GET NOTE TESTS //
+
+    @Test
+    void getExistingNoteTest() throws Exception {
+        when(noteService.findNoteById(any(BigInteger.class))).thenReturn(note1);
+        mockMvc.perform(get("/notes/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getNonExistentNoteTest() throws Exception {
+        when(noteService.findNoteById(any(BigInteger.class))).thenThrow(ElementNotFoundException.class);
+        mockMvc.perform(get("/notes/1"))
+                .andExpect(status().isNotFound());
+    }
+
     // UPDATE NOTE TESTS //
 
     @Test

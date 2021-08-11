@@ -41,6 +41,17 @@ public class NoteController {
     }
 
     /**
+     * Get a specified note.
+     * @param id of the note concerned
+     * @return Note
+     */
+    @GetMapping("/notes/{id}")
+    public Note getNote(@PathVariable BigInteger id) {
+        LOGGER.info("Getting note with id : " + id);
+        return noteService.findNoteById(id);
+    }
+
+    /**
      * Update an existing note.
      * @param noteId concerned
      * @param updatedNote with updated modifications

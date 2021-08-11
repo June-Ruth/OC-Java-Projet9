@@ -1,5 +1,6 @@
 package com.openclassrooms.mediscreen.webapp.controller;
 
+import com.openclassrooms.mediscreen.webapp.exception.ElementNotFoundException;
 import com.openclassrooms.mediscreen.webapp.model.Note;
 import com.openclassrooms.mediscreen.webapp.service.NoteService;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,11 +70,58 @@ public class NoteControllerTest {
 
     // SHOW UPDATE NOTE FORM TESTS //
 
-    //TODO
+    @Test
+    void showUpdateFormForExistingNoteTest() throws Exception {
+        when(noteService.findNoteById(any(BigInteger.class))).thenReturn(note1);
+        mockMvc.perform(get("/patients/1/notes/update/{id}", 1)
+                        .sessionAttr("note", note1)
+                        .param("patientId", "1")
+                        .param("id", "1"))
+                .andExpect(status().isOk())
+                .andExpect(handler().methodName("showUpdateNoteForm"))
+                .andExpect(request().attribute("note", note1))
+                .andExpect(view().name("patients/notes/update"));
+    }
+
+    @Test
+    void showUpdateFormForNonExistentNoteTest() throws Exception {
+        when(noteService.findNoteById(any(BigInteger.class))).thenThrow(ElementNotFoundException.class);
+        mockMvc.perform(get("/patients/1/notes/update/{id}", 1)
+                        .sessionAttr("note", note1)
+                        .param("patientId", "1")
+                        .param("id", "1"))
+                .andExpect(status().isNotFound())
+                .andExpect(handler().methodName("showUpdateNoteForm"));
+    }
 
     // UPDATE NOTE TESTS //
 
-    //TODO
+    @Test
+    void updateExistingPatientAndValidArgumentsTest() throws Exception {
+        when(noteService.findNoteById(any(BigInteger.class))).thenReturn(note1);
+        when(noteService.updateNote(any(Note.class))).thenReturn(note1);
+        mockMvc.perform(post("/patients/1/notes/update/{id}", 1)
+                        .contentType("text/html;charset=UTF-8")
+                        .sessionAttr("note", note1)
+                        .param("creationDate", note1.getCreationDate().toString())
+                        .param("content", note1.getContent()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().methodName("updateNote"))
+                .andExpect(model().hasNoErrors())
+                .andExpect(view().name("redirect:/patients/profile/1"));
+    }
+
+    @Test
+    void updateNonExistentPatientAndValidArgumentsTest() throws Exception {
+        when(noteService.findNoteById(any(BigInteger.class))).thenThrow(ElementNotFoundException.class);
+        mockMvc.perform(post("/patients/1/notes/update/{id}", 1)
+                        .contentType("text/html;charset=UTF-8")
+                        .sessionAttr("note", note1)
+                        .param("creationDate", note1.getCreationDate().toString())
+                        .param("content", note1.getContent()))
+                .andExpect(status().isNotFound())
+                .andExpect(handler().methodName("updateNote"));
+    }
 
     // DELETE NOTE TESTS //
 

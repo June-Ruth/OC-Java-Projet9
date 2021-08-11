@@ -109,7 +109,7 @@ public class PatientController {
     @GetMapping("/patients/update/{id}")
     public String showUpdateForm(@PathVariable final Integer id,
                                  final Model model) {
-        LOGGER.info("Show form for update");
+        LOGGER.info("Show form to update patient");
         model.addAttribute("patient", patientService.findPatientById(id));
         return "patients/update";
     }
