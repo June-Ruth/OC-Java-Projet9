@@ -3,7 +3,6 @@ package com.openclassrooms.mediscreen.notemicroservice.service;
 import com.openclassrooms.mediscreen.notemicroservice.exception.ElementNotFoundException;
 import com.openclassrooms.mediscreen.notemicroservice.model.Note;
 import com.openclassrooms.mediscreen.notemicroservice.repository.NoteRepository;
-import com.openclassrooms.mediscreen.notemicroservice.repository.NoteServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

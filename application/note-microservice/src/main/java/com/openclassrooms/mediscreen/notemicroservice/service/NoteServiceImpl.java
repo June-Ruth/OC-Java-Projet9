@@ -1,8 +1,8 @@
-package com.openclassrooms.mediscreen.notemicroservice.repository;
+package com.openclassrooms.mediscreen.notemicroservice.service;
 
 import com.openclassrooms.mediscreen.notemicroservice.exception.ElementNotFoundException;
 import com.openclassrooms.mediscreen.notemicroservice.model.Note;
-import com.openclassrooms.mediscreen.notemicroservice.service.NoteService;
+import com.openclassrooms.mediscreen.notemicroservice.repository.NoteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

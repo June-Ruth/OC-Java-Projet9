@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Mediscreen</title>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 
 <body>
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <a href="/home">Home</a>&nbsp;|&nbsp;
-            <a href="/patients/list">Patients</a>&nbsp;|&nbsp;
+            <a href="home.html" th:href="@{/home}">Home</a>&nbsp;|&nbsp;
+            <a href="patients/list.html" th:href="@{/patients/list}">Patients</a>&nbsp;|&nbsp;
         </div>
     </div>
 

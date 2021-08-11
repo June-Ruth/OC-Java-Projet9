@@ -1,0 +1,18 @@
+# syntax=docker/dockerfile:1
+
+FROM gradle:7.1.1-jdk11 AS build
+
+COPY --chown=gradle:gradle . /buildDir
+
+WORKDIR /buildDir
+RUN gradle :note-microservice:build --no-daemon
+
+FROM openjdk:11-jre-slim
+
+EXPOSE 8082
+
+RUN mkdir /app
+
+COPY --from=build /buildDir/application/note-microservice/build/libs/*.jar /app/note-microservice.jar
+
+ENTRYPOINT ["java", "-jar", "/app/note-microservice.jar"]
