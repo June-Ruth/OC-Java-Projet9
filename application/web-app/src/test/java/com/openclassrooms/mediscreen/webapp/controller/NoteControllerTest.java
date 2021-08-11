@@ -64,7 +64,7 @@ public class NoteControllerTest {
                 .param("content", note1.getContent()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().methodName("validateNewNote")).andExpect(model().hasNoErrors())
-                .andExpect(view().name("redirect:/patients/profile/{patientId}"));
+                .andExpect(view().name("redirect:/patients/profile/" + note1.getPatientId()));
     }
 
     // SHOW UPDATE NOTE FORM TESTS //
@@ -84,7 +84,7 @@ public class NoteControllerTest {
                         .sessionAttr("note", note1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().methodName("deleteNote"))
-                .andExpect(view().name("redirect:/patients/profile/{patientId}"));
+                .andExpect(view().name("redirect:/patients/profile/" + note1.getPatientId()));
     }
 
 }
