@@ -60,6 +60,11 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public void deleteNote(final BigInteger id) {
-        //TODO
+        LOGGER.info("Deleting note with id : " + id);
+        webClientNote
+                .delete()
+                .uri("/notes/" + id)
+                .retrieve()
+                .bodyToMono(Void.class).block();
     }
 }
