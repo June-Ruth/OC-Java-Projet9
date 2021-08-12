@@ -70,7 +70,7 @@
       <tr th:each="note : ${noteList}">
         <td th:text="${note.creationDate}"></td>
         <td th:text="${note.lastModificationDate}"></td>
-        <td th:text="${note.content}"></td>
+        <td style="white-space: pre-wrap" th:text="${note.content}"></td>
         <td style="width: 15%" class="text-center">
           <a class="btn btn-primary btn-sm" th:href="@{/patients/{patientId}/notes/update/{id}(patientId=${note.patientId}, id=${note.id})}">Edit</a>
           <a class="btn btn-danger btn-sm" th:href="@{/patients/{patientId}/notes/delete/{id}(patientId=${note.patientId}, id=${note.id})}">Delete</a>

@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="content" class="col-sm-2 control-label">Content</label>
                 <div class="col-sm-10">
-                    <input type="text" style="white-space:pre-wrap" th:field="*{content}" id="content" placeholder="content" class="col-4">
+                    <textarea class="form-control" id="content" placeholder="content" th:field="*{content}"></textarea>
                     <p class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
 
                 </div>
