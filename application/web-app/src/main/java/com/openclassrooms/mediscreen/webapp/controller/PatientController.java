@@ -1,6 +1,8 @@
 package com.openclassrooms.mediscreen.webapp.controller;
 
+import com.openclassrooms.mediscreen.webapp.model.Note;
 import com.openclassrooms.mediscreen.webapp.model.Patient;
+import com.openclassrooms.mediscreen.webapp.service.NoteService;
 import com.openclassrooms.mediscreen.webapp.service.PatientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +25,20 @@ public class PatientController {
      * @see PatientService
      */
     private final PatientService patientService;
+    /**
+     * @see NoteService
+     */
+    private final NoteService noteService;
 
     /**
      * Public constructor.
      * @param patientService1 .
+     * @param noteService1 .
      */
-    public PatientController(final PatientService patientService1) {
+    public PatientController(final PatientService patientService1,
+                             final NoteService noteService1) {
         patientService = patientService1;
+        noteService = noteService1;
     }
 
     /**
@@ -56,6 +65,7 @@ public class PatientController {
                              final Model model) {
         LOGGER.info("Getting patient with id : " + id);
         model.addAttribute("patient", patientService.findPatientById(id));
+        model.addAttribute("noteList", noteService.getAllNoteOfOnePatient(id));
         return "patients/profile";
     }
 
@@ -98,7 +108,7 @@ public class PatientController {
     @GetMapping("/patients/update/{id}")
     public String showUpdateForm(@PathVariable final Integer id,
                                  final Model model) {
-        LOGGER.info("Show form for update");
+        LOGGER.info("Show form to update patient");
         model.addAttribute("patient", patientService.findPatientById(id));
         return "patients/update";
     }

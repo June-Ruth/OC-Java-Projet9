@@ -23,6 +23,20 @@ services:
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
       - mysql_db_data_container:/var/lib/mysql
 
+  mongo:
+    image: mongo:4
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    networks:
+      backend-network:
+        ipv4_address: 172.20.0.4
+    volumes:
+      - mongo_db_data_container:/var/lib/mongo
+
   patient-microservice:
     depends_on:
       - mysql
@@ -45,6 +59,30 @@ services:
     volumes:
       - patient_microservice_container:/var/lib/patient
 
+  note-microservice:
+    depends_on :
+      - mongo
+    build:
+      context: ./
+      dockerfile: Dockerfile-note-microservice
+    image: note_microservice
+    container_name: mediscreen_note_microservice
+    restart: always
+    environment:
+      SPRING_DATA_MONGODB_USERNAME : root
+      SPRING_DATA_MONGODB_PASSWORD : password
+      SPRING_DATA_MONGODB_HOST : 172.20.0.4
+      SPRING_DATA_MONGODB_PORT : 27017
+      SPRING_DATA_MONGODB_DATABASE : demo
+      SPRING_PROFILES_ACTIVE : demo
+    ports:
+      - "8082:8082"
+    networks:
+      backend-network:
+        ipv4_address: 172.20.0.5
+    volumes:
+      - note_microservice_container:/var/lib/note
+
   webapp:
     depends_on:
       - patient-microservice
@@ -56,6 +94,8 @@ services:
     restart: always
     environment:
       SPRING_PROFILES_ACTIVE : demo
+      PATIENT_HOST : 172.20.0.2
+      NOTE_HOST : 172.20.0.5
     ports:
       - "8080:8080"
     networks:
@@ -68,3 +108,5 @@ volumes:
   mysql_db_data_container:
   patient_microservice_container:
   web_app_container:
+  mongo_db_data_container:
+  note_microservice_container:

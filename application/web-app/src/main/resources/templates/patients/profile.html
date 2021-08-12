@@ -4,20 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Mediscreen</title>
-  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 
 <body>
 <div class="container">
   <div class="row">
     <div class="col-6">
-      <a href="/home">Home</a>&nbsp;|&nbsp;
-      <a href="/patients/list">Patients</a>&nbsp;|&nbsp;
+      <a href="home.html" th:href="@{/home}">Home</a>&nbsp;|&nbsp;
+      <a href="patients/list.html" th:href="@{/patients/list}">Patients</a>&nbsp;|&nbsp;
     </div>
   </div>
-  <h2 th:text="${patient.family}"></h2>
-  <h2 th:text="${patient.given}"></h2>
-
+  <div>
+    <h2 th:text="${patient.family}"></h2>
+    <h2 th:text="${patient.given}"></h2>
+  </div>
   <div class="row">
     <table class="table table-bordered">
       <thead>
@@ -50,6 +52,34 @@
       <a class="btn btn-danger btn-sm" th:href="@{/patients/delete/{id}(id=${patient.id})}">Delete</a>
     </div>
   </div>
+
+  <h3>Historical Notes</h3>
+  <a th:href="@{/patients/{id}/notes/add(id=${patient.id})}" class="btn btn-primary btn-sm">Add new note</a>
+
+  <div class="row">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Creation Date</th>
+        <th>Last Modification Date</th>
+        <th>Content</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="note : ${noteList}">
+        <td th:text="${note.creationDate}"></td>
+        <td th:text="${note.lastModificationDate}"></td>
+        <td style="white-space: pre-wrap" th:text="${note.content}"></td>
+        <td style="width: 15%" class="text-center">
+          <a class="btn btn-primary btn-sm" th:href="@{/patients/{patientId}/notes/update/{id}(patientId=${note.patientId}, id=${note.id})}">Edit</a>
+          <a class="btn btn-danger btn-sm" th:href="@{/patients/{patientId}/notes/delete/{id}(patientId=${note.patientId}, id=${note.id})}">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 
 </div>
 </body>
