@@ -33,7 +33,7 @@ public class NoteServiceImpl implements NoteService {
      * @inheritDoc
      */
     @Override
-    public Note findNoteById(BigInteger id) {
+    public Note findNoteById(final BigInteger id) {
         LOGGER.info("Finding note with id : " + id);
         return noteRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("No note find for id : " + id));
     }
@@ -42,7 +42,7 @@ public class NoteServiceImpl implements NoteService {
      * @inheritDoc
      */
     @Override
-    public List<Note> findAllNotesByPatientId(Integer patientId) {
+    public List<Note> findAllNotesByPatientId(final Integer patientId) {
         LOGGER.info("Finding all notes of patient with id : " + patientId);
         return noteRepository.findByPatientId(patientId);
     }
@@ -51,7 +51,7 @@ public class NoteServiceImpl implements NoteService {
      * @inheritDoc
      */
     @Override
-    public Note saveNote(Note note) {
+    public Note saveNote(final Note note) {
         LOGGER.info("Saving note for patient with id : " + note.getPatientId());
         return noteRepository.save(note);
     }
@@ -60,7 +60,7 @@ public class NoteServiceImpl implements NoteService {
      * @inheritDoc
      */
     @Override
-    public void deleteNoteById(BigInteger id) {
+    public void deleteNoteById(final BigInteger id) {
         LOGGER.info("Deleting note with id : " + id);
         noteRepository.deleteById(id);
     }

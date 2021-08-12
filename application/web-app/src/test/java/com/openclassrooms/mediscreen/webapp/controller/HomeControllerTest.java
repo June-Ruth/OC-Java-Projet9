@@ -21,6 +21,6 @@ public class HomeControllerTest {
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
                 .andExpect(handler().methodName("homePage"))
                 .andExpect(model().hasNoErrors())
-                .andExpect(view().name("/home"));
+                .andExpect(view().name("home"));
     }
 }

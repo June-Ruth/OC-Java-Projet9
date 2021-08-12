@@ -116,6 +116,7 @@ public class NoteController {
 
     /**
      * Delete a note.
+     * @param patientId concerned
      * @param id of note to delete
      * @param model .
      * @return note list

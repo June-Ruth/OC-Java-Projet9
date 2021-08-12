@@ -9,10 +9,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 @PropertySource("classpath:application.properties")
 @Configuration
 public class WebClientConfig {
-
+    /**
+     * Host of patient microservice.
+     */
     @Value("${patient_host:localhost}")
     private String patientHost;
-
+    /**
+     * Host of note microservice.
+     */
     @Value("${note_host:localhost}")
     private String noteHost;
 

@@ -89,7 +89,7 @@ public class NoteServiceImpl implements NoteService {
      * @inheritDoc
      */
     @Override
-    public Note findNoteById(BigInteger id) {
+    public Note findNoteById(final BigInteger id) {
         LOGGER.info("Finding note with id : " + id);
         return webClientNote
                 .get().uri("/notes/" + id)
@@ -109,7 +109,7 @@ public class NoteServiceImpl implements NoteService {
      * @inheritDoc
      */
     @Override
-    public Note updateNote(Note note) {
+    public Note updateNote(final Note note) {
         LOGGER.info("Updating note with id : " + note.getId());
         return webClientNote
                 .put()

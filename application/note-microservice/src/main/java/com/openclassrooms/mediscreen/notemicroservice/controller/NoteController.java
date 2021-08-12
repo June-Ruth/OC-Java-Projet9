@@ -46,7 +46,7 @@ public class NoteController {
      * @return Note
      */
     @GetMapping("/notes/{id}")
-    public Note getNote(@PathVariable BigInteger id) {
+    public Note getNote(@PathVariable final BigInteger id) {
         LOGGER.info("Getting note with id : " + id);
         return noteService.findNoteById(id);
     }

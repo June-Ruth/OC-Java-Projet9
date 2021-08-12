@@ -88,6 +88,9 @@ public class PatientServiceImpl implements PatientService {
                 .block();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Patient updatePatient(final Patient updatedPatient) {
         LOGGER.info("Updating patient with id : " + updatedPatient.getId());
