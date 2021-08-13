@@ -43,6 +43,15 @@ public class PatientServiceImpl implements PatientService {
      * @inheritDoc
      */
     @Override
+    public List<Patient> findAllPatientsByFullName(String family, String given) {
+        LOGGER.info("Finding all patient with familu : " + family + " and given : " + given);
+        return patientRepository.findByFamilyLikeAndGivenLike(family, given);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public Patient findPatientById(final Integer id) {
         LOGGER.info("Finding patient with id : " + id);
         return patientRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("No user find for id : " + id));

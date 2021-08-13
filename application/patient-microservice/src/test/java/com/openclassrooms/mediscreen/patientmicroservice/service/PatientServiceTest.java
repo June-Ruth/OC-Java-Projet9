@@ -50,6 +50,15 @@ public class PatientServiceTest {
         verify(patientRepository, times(1)).findAll();
     }
 
+    // FIND PATIENT BY FULL NAME //
+
+    @Test
+    void findAllPatientsByFullNameTest() {
+        when(patientRepository.findByFamilyLikeAndGivenLike(anyString(), anyString())).thenReturn(allPatients);
+        patientService.findAllPatientsByFullName("family", "given");
+        verify(patientRepository, times(1)).findByFamilyLikeAndGivenLike("family", "given");
+    }
+
     // FIND PATIENT BY ID //
 
     @Test

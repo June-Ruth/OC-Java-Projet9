@@ -19,7 +19,7 @@ public class NoteController {
     /**
      * @see Logger
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NoteController.class);
 
     /**
      * @see NoteService
@@ -97,10 +97,10 @@ public class NoteController {
      */
     @PostMapping("/patients/{patientId}/notes/update/{id}")
     public String updateNote(@PathVariable final Integer patientId,
-                                @PathVariable final BigInteger id,
-                                final Note updatedNote,
-                                final BindingResult result,
-                                final Model model) {
+                             @PathVariable final BigInteger id,
+                             final Note updatedNote,
+                             final BindingResult result,
+                             final Model model) {
         LOGGER.info("Updating patient with id : " + id);
         if (!result.hasErrors()) {
             Note note = noteService.findNoteById(id);

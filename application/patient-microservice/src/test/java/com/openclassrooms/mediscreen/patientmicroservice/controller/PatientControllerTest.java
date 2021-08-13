@@ -16,8 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -46,7 +45,7 @@ public class PatientControllerTest {
         allPatients.add(patient2);
     }
 
-    // FIND ALL PATIENTS //
+    // FIND ALL PATIENTS TEST //
 
     @Test
     void getAllPatientsTest() throws Exception {
@@ -55,7 +54,19 @@ public class PatientControllerTest {
                 .andExpect(status().isOk());
     }
 
-    // FIND PATIENT BY ID //
+    //FIND PATIENT BY FULL NAME TEST //
+
+    @Test
+    void getAllPatientsByFullNameTest() throws Exception {
+        when(patientService.findAllPatientsByFullName(anyString(), anyString())).thenReturn(allPatients);
+        mockMvc.perform(get("/patients")
+                .param("family", patient1.getFamily())
+                .param("given", patient1.getGiven()))
+                .andExpect(status().isOk());
+    }
+
+
+    // FIND PATIENT BY ID TEST //
 
     @Test
     void getExistingPatientByIdTest() throws Exception {
@@ -71,7 +82,7 @@ public class PatientControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    // SAVE PATIENT //
+    // SAVE PATIENT TEST //
 
     @Test
     void savePatientTest() throws Exception {

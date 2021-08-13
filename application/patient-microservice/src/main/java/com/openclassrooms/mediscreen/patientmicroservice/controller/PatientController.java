@@ -28,16 +28,6 @@ public class PatientController {
     }
 
     /**
-     * Get all patients in database.
-     * @return list of all patient
-     */
-    @GetMapping("/patients")
-    public List<Patient> getAllPatients() {
-        LOGGER.info("Getting all patients.");
-        return patientService.findAllPatients();
-    }
-
-    /**
      * Get a patient by its id.
      * Throw ElementNotFoundException if it doesn't exist.
      * @param id of user
@@ -47,6 +37,23 @@ public class PatientController {
     public Patient getPatient(@PathVariable final Integer id) {
         LOGGER.info("Getting patient with id : " + id);
         return patientService.findPatientById(id);
+    }
+
+    /**
+     * Get all patients with full name corresponding.
+     * If no family or given is given, then all patients referenced in database are return.
+     * @param family .
+     * @param given .
+     * @return all patient corresponding
+     */
+    @GetMapping("/patients")
+    public List<Patient> getAllPatientsByFullName(@RequestParam(required = false) final String family,
+                                                  @RequestParam(required = false) final String given) {
+        LOGGER.info("Getting all patients with family : " + family + " and given : " + given);
+        if(family==null && given==null) {
+            return patientService.findAllPatients();
+        }
+        return patientService.findAllPatientsByFullName(family, given);
     }
 
     /**
