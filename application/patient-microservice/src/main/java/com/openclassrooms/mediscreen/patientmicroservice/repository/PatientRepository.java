@@ -7,5 +7,9 @@ import java.util.List;
 
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
-    List<Patient> findByFamilyLikeAndGivenLike(String family, String given);
+    List<Patient> findByFamilyContainingIgnoreCaseOrGivenContainingIgnoreCase(String family, String given);
+
+    List<Patient> findByFamilyContainingIgnoreCase(String family);
+
+    List<Patient> findByGivenContainingIgnoreCase(String given);
 }

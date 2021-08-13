@@ -55,7 +55,12 @@
   </div>
 
   <h3>Historical Notes</h3>
-  <a th:href="@{/patients/{id}/notes/add(id=${patient.id})}" class="btn btn-primary btn-sm">Add new note</a>
+
+  <div class="form-group">
+    <div>
+      <a th:href="@{/patients/{id}/notes/add(id=${patient.id})}" class="btn btn-primary btn-sm">Add new note</a>
+    </div>
+  </div>
 
   <div class="row">
     <table class="table table-bordered">

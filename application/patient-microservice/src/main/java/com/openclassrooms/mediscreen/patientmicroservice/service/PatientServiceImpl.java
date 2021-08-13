@@ -43,9 +43,17 @@ public class PatientServiceImpl implements PatientService {
      * @inheritDoc
      */
     @Override
-    public List<Patient> findAllPatientsByFullName(String family, String given) {
-        LOGGER.info("Finding all patient with familu : " + family + " and given : " + given);
-        return patientRepository.findByFamilyLikeAndGivenLike(family, given);
+    public List<Patient> findAllPatientsByFullName(final String family, final String given) {
+        LOGGER.info("Finding all patient with family : " + family + " and given : " + given);
+        if((family!=null && !family.isBlank()) && (given!=null && !given.isBlank())) {
+            return patientRepository.findByFamilyContainingIgnoreCaseOrGivenContainingIgnoreCase(family, given);
+        } else if ((family==null || family.isBlank()) && (given!=null && !given.isBlank())) {
+            return patientRepository.findByGivenContainingIgnoreCase(given);
+        } else if ((family!=null && !family.isBlank()) && (given==null || given.isBlank())) {
+            return patientRepository.findByFamilyContainingIgnoreCase(family);
+        } else {
+            return findAllPatients();
+        }
     }
 
     /**

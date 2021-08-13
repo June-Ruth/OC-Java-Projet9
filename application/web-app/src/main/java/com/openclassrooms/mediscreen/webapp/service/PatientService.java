@@ -13,6 +13,14 @@ public interface PatientService {
     List<Patient> findAllPatients();
 
     /**
+     * Find all patients in database with similar family or given.
+     * @param family searched
+     * @param given searched
+     * @return list of patients that should correspond
+     */
+    List<Patient> findAllPatientsByFullName(String family, String given);
+
+    /**
      * Find a patient by its id.
      * Throw ElementNotFoundException if it doesn't exist.
      * @param id of patient
