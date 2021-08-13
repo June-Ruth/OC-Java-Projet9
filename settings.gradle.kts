@@ -4,9 +4,10 @@ subdir("application") {
     include("web-app")
     include("patient-microservice")
     include("note-microservice")
+    include("report-microservice")
 }
 
-subdir("core-librairies") {
+subdir("core-libraries") {
     include("models")
 }
 
