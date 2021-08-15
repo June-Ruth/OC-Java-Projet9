@@ -1,9 +1,14 @@
 package com.openclassrooms.mediscreen.reportmicroservice.controller;
 
+import com.openclassrooms.mediscreen.reportmicroservice.enums.Risk;
 import com.openclassrooms.mediscreen.reportmicroservice.service.ReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class ReportController {
@@ -24,8 +29,19 @@ public class ReportController {
         reportService = reportService1;
     }
 
-    public void getDiabetesAssessmentLevel(final char patientSex, final int age /*List allNotes*/ ) {
-
+    /**
+     * Get the diabetes assessment level for given parameters.
+     * @param patientSex .
+     * @param age .
+     * @param allNotesContent .
+     * @return risk depending on parameters
+     */
+    @GetMapping("/assessment")
+    public Risk getDiabetesAssessmentLevel(@RequestParam final char patientSex,
+                                           @RequestParam final int age,
+                                           @RequestParam final List<String> allNotesContent) {
+        LOGGER.info("Get diabetes assessment level for sex " + patientSex
+                + "and age : " + age + "and notes : " + allNotesContent);
+        return reportService.getDiabetesAssessmentLevel(patientSex, age, allNotesContent);
     }
-
 }
