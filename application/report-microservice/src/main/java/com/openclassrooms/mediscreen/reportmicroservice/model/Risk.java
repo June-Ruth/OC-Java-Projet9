@@ -1,4 +1,4 @@
-package com.openclassrooms.mediscreen.reportmicroservice.enums;
+package com.openclassrooms.mediscreen.reportmicroservice.model;
 
 public enum Risk {
     /**

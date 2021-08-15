@@ -1,6 +1,6 @@
 package com.openclassrooms.mediscreen.reportmicroservice.controller;
 
-import com.openclassrooms.mediscreen.reportmicroservice.enums.Risk;
+import com.openclassrooms.mediscreen.reportmicroservice.model.Risk;
 import com.openclassrooms.mediscreen.reportmicroservice.service.ReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 package com.openclassrooms.mediscreen.reportmicroservice.service;
 
-import com.openclassrooms.mediscreen.reportmicroservice.enums.Risk;
+import com.openclassrooms.mediscreen.reportmicroservice.model.Risk;
 
 import java.util.List;
 
