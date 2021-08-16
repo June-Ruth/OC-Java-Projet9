@@ -4,10 +4,7 @@ subdir("application") {
     include("web-app")
     include("patient-microservice")
     include("note-microservice")
-}
-
-subdir("core-librairies") {
-    include("models")
+    include("report-microservice")
 }
 
 class IncludeDsl(val root: String) {

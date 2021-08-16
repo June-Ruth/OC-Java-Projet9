@@ -52,10 +52,30 @@ public class PatientServiceImpl implements PatientService {
      * @inheritDoc
      */
     @Override
+    public List<Patient> findAllPatientsByFullName(String family, String given) {
+        LOGGER.info("Finding all patients with family : " + family + " and given : " + given);
+        return webClientPatient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/patients")
+                        .queryParam("family", family)
+                        .queryParam("given", given)
+                        .build())
+                .retrieve()
+                .bodyToFlux(Patient.class)
+                .collectList()
+                .block();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public Patient findPatientById(final Integer id) {
         LOGGER.info("Finding patient with id : " + id);
         return webClientPatient
-                .get().uri("/patients/" + id)
+                .get()
+                .uri("/patients/" + id)
                 .exchangeToMono(clientResponse -> {
                     if (clientResponse.statusCode().equals(HttpStatus.OK)) {
                         return clientResponse.bodyToMono(Patient.class);

@@ -19,6 +19,11 @@ public class WebClientConfig {
      */
     @Value("${note_host:localhost}")
     private String noteHost;
+    /**
+     * Host of report microservice.
+     */
+    @Value("${REPORT_HOST:localhost}")
+    private String reportHost;
 
     /**
      * Calling Patient-Microservice.
@@ -35,5 +40,14 @@ public class WebClientConfig {
     @Bean
     public WebClient getWebClientNote() {
         return WebClient.create("http://" + noteHost + ":8082");
+    }
+
+    /**
+     * Calling report-microservice.
+     * @return report-microservice
+     */
+    @Bean
+    public WebClient getWebClientReport() {
+        return WebClient.create("http://" + reportHost + ":8083");
     }
 }

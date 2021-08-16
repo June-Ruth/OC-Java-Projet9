@@ -4,6 +4,7 @@ import com.openclassrooms.mediscreen.webapp.exception.ElementNotFoundException;
 import com.openclassrooms.mediscreen.webapp.model.Patient;
 import com.openclassrooms.mediscreen.webapp.service.NoteService;
 import com.openclassrooms.mediscreen.webapp.service.PatientService;
+import com.openclassrooms.mediscreen.webapp.service.ReportService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class PatientControllerTest {
 
     @MockBean
     private NoteService noteService;
+
+    @MockBean
+    private ReportService reportService;
 
     private Patient patient1;
     private Patient patient2;
@@ -65,6 +69,7 @@ public class PatientControllerTest {
     void getExistingPatientTest() throws Exception {
         when(patientService.findPatientById(anyInt())).thenReturn(patient1);
         when(noteService.getAllNoteOfOnePatient(anyInt())).thenReturn(new ArrayList<>());
+        when(reportService.getDiabetesAssessmentByPatient(any(Patient.class))).thenReturn("assessment");
         mockMvc.perform(get("/patients/profile/1"))
                 .andExpect(status().isOk())
                 .andExpect(handler().methodName("getPatient"))

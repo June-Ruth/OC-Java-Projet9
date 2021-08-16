@@ -14,10 +14,17 @@
         <div class="col-6">
             <a href="home.html" th:href="@{/home}">Home</a>&nbsp;|&nbsp;
             <a href="patients/list.html" th:href="@{/patients/list}">Patients</a>&nbsp;|&nbsp;
+            <a href="assess.html" th:href="@{/assess}">Assessment</a>&nbsp;|&nbsp;
         </div>
     </div>
+
     <h1> Patients </h1>
-    <a href="/patients/add" class="btn btn-primary btn-sm">Add new patient</a>
+
+    <div class="form-group">
+        <div>
+            <a href="/patients/add" class="btn btn-primary btn-sm">Add new patient</a>
+        </div>
+    </div>
 
     <div class="row">
         <table class="table table-bordered">

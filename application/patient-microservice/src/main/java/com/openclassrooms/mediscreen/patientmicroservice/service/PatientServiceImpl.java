@@ -43,6 +43,23 @@ public class PatientServiceImpl implements PatientService {
      * @inheritDoc
      */
     @Override
+    public List<Patient> findAllPatientsByFullName(final String family, final String given) {
+        LOGGER.info("Finding all patient with family : " + family + " and given : " + given);
+        if((family!=null && !family.isBlank()) && (given!=null && !given.isBlank())) {
+            return patientRepository.findByFamilyContainingIgnoreCaseOrGivenContainingIgnoreCase(family, given);
+        } else if ((family==null || family.isBlank()) && (given!=null && !given.isBlank())) {
+            return patientRepository.findByGivenContainingIgnoreCase(given);
+        } else if ((family!=null && !family.isBlank()) && (given==null || given.isBlank())) {
+            return patientRepository.findByFamilyContainingIgnoreCase(family);
+        } else {
+            return findAllPatients();
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public Patient findPatientById(final Integer id) {
         LOGGER.info("Finding patient with id : " + id);
         return patientRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("No user find for id : " + id));

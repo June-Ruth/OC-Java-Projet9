@@ -21,6 +21,14 @@ public interface PatientService {
     Patient findPatientById(Integer id);
 
     /**
+     * Find all patients that contains family and given specified.
+     * @param family searched
+     * @param given searched
+     * @return List of all patient corresponding
+     */
+    List<Patient> findAllPatientsByFullName(String family, String given);
+
+    /**
      * Save new patient or update existing patient.
      * @param newPatient to save
      * @return patient saved
