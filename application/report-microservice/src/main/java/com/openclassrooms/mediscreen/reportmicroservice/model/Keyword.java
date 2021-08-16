@@ -36,8 +36,8 @@ public class Keyword implements Comparable<Keyword> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Keyword symptom = (Keyword) o;
-        return keyword.equals(symptom.keyword);
+        Keyword keyword1 = (Keyword) o;
+        return keyword.equals(keyword1.keyword);
     }
 
     @Override

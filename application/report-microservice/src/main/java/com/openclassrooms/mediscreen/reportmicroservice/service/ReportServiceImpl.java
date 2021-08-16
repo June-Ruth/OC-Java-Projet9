@@ -1,12 +1,12 @@
 package com.openclassrooms.mediscreen.reportmicroservice.service;
 
+import com.openclassrooms.mediscreen.reportmicroservice.model.Keyword;
 import com.openclassrooms.mediscreen.reportmicroservice.model.Risk;
 import com.openclassrooms.mediscreen.reportmicroservice.repository.KeywordRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,7 +15,9 @@ public class ReportServiceImpl implements ReportService {
      * @see Logger
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportServiceImpl.class);
-
+    /**
+     * @see KeywordRepository
+     */
     private KeywordRepository keywordRepository;
 
     /**
@@ -61,12 +63,12 @@ public class ReportServiceImpl implements ReportService {
     }
 
     private int calculateKeywordsInNotesContent(List<String> allNotesContent) {
-
-        List<String> keywords = new ArrayList<>();
-
-
+        List<Keyword> keywords = keywordRepository.getAll();
 
         //TODO
+
+
+
         return 0;
     }
 }
