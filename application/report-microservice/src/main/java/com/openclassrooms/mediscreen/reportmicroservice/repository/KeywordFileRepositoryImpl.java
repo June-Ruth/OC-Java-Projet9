@@ -3,11 +3,10 @@ package com.openclassrooms.mediscreen.reportmicroservice.repository;
 import com.openclassrooms.mediscreen.reportmicroservice.model.Keyword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class KeywordFileRepositoryImpl implements KeywordRepository {
      * Constructor.
      */
     public KeywordFileRepositoryImpl() {
-        filepath="src/main/resources/keywords.txt";
+        filepath="keywords.txt";
     }
 
     /**
@@ -37,8 +36,9 @@ public class KeywordFileRepositoryImpl implements KeywordRepository {
         LOGGER.info("Get all  keywords in file.");
         List<Keyword> keywordList = new ArrayList<>();
 
-        try (FileReader fileReader = new FileReader(filepath)) {
-            BufferedReader reader = new BufferedReader(fileReader);
+        try (InputStream inputStream = new ClassPathResource(filepath).getInputStream()) {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
             String line = reader.readLine();
             while (line != null) {
                 keywordList.add(new Keyword(line));
@@ -47,7 +47,9 @@ public class KeywordFileRepositoryImpl implements KeywordRepository {
         } catch (IOException e) {
             LOGGER.error("IOException", e);
         }
-        return keywordList;    }
+        LOGGER.info("Find number of keyword of " + keywordList.size());
+        return keywordList;
+    }
 
     /**
      * Getter filepath.

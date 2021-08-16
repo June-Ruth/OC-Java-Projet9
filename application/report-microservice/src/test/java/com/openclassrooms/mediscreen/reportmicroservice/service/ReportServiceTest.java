@@ -42,7 +42,7 @@ public class ReportServiceTest {
     void beforeEach() {
         reportService = new ReportServiceImpl(keywordRepository);
         allNotesContent = new ArrayList<>();
-        note1 = "Sentence with keyword1";
+        note1 = "Sentence with kéyword1";
         note2 = "Sentence with keyword2";
         note3 = "Sentence with keyword3";
         note4 = "Sentence with keyword4";

@@ -19,7 +19,7 @@ public class KeywordsRepositoryTest {
 
     @Test
     void getAllTest() {
-        keywordRepository.setFilepath("src/main/resources/keywords_test.txt");
+        keywordRepository.setFilepath("keywords_test.txt");
         assertEquals(4, keywordRepository.getAll().size());
     }
 

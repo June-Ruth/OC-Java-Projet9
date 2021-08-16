@@ -21,7 +21,7 @@ This Application was developed for Abernathy Clinic to manage patients and preve
  - Open project with your IDE
 
 ####1.3. Docker
-- Verify the environment variables in docker-compose (or env. file ?) to make them suitable with your own environment.
+- Verify the environment variables in docker-compose (//TODO if times : env. file ?) to make them suitable with your own environment.
 - Launch the docker compose at the root of the project
 ````bash
 docker compose up
@@ -30,7 +30,8 @@ Docker images and containers will be built during the launch if they are not alr
 
 ####1.4. DataBase
 - MongoDB and MySQL databases are configured to generate needed schemas automatically.
-- (NB : //TODO) Default values are injected during the launch of Docker if the spring active profile is demo.
+- (//TODO) Default values are injected during the launch of Docker if the spring active profile is demo.
+- Keywords used to generate the diabetes assessment are referenced in keywords.txt based in resources classpath of the service.
 
 ###2. Access to endpoints
 

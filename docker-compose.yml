@@ -104,6 +104,8 @@ services:
   webapp:
     depends_on:
       - patient-microservice
+      - note-microservice
+      - report-microservice
     build:
       context: ./
       dockerfile: Dockerfile-web-app

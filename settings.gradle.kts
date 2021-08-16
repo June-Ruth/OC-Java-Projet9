@@ -7,10 +7,6 @@ subdir("application") {
     include("report-microservice")
 }
 
-subdir("core-libraries") {
-    include("models")
-}
-
 class IncludeDsl(val root: String) {
     fun include(project: String) {
         settings.include(project)

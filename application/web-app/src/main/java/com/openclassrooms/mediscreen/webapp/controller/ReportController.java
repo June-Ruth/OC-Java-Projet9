@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -42,17 +41,6 @@ public class ReportController {
                             final PatientService patientService1) {
         reportService = reportService1;
         patientService = patientService1;
-    }
-
-    /**
-     * Generate the diabetes assessment of a patient found by its id.
-     * @param patientId of patient concerned.
-     * @return View of the diabetes assessment
-     */
-    @GetMapping("/assess/patients/{patientId}")
-    public String getDiabetesAssessmentByPatientId(@PathVariable final Integer patientId) {
-        //TODO
-        return null;
     }
 
     /**
