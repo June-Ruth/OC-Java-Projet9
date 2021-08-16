@@ -3,7 +3,6 @@ package com.openclassrooms.mediscreen.reportmicroservice.service;
 import com.openclassrooms.mediscreen.reportmicroservice.model.Keyword;
 import com.openclassrooms.mediscreen.reportmicroservice.model.Risk;
 import com.openclassrooms.mediscreen.reportmicroservice.repository.KeywordRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -93,7 +92,7 @@ public class ReportServiceTest {
     // CASE age >= 30 && keywords <= 7, RETURN IN_DANGER
 
     @Test
-    void getDiabetesAssessmentLevelAgeMoreThan30KeywordsLessThan7SexMaleTest() {
+    void getDiabetesAssessmentLevelAgeMoreThan30KeywordsLessThan7WithDuplicateSexMaleTest() {
         age = 35;
         patientSex = 'H';
         allNotesContent.add(note1);
@@ -101,6 +100,11 @@ public class ReportServiceTest {
         allNotesContent.add(note3);
         allNotesContent.add(note4);
         allNotesContent.add(note5);
+        allNotesContent.add(note6);
+        allNotesContent.add(note6);
+        allNotesContent.add(note6);
+        allNotesContent.add(note6);
+        allNotesContent.add(note6);
         allNotesContent.add(note6);
         when(keywordRepository.getAll()).thenReturn(allKeywords);
         assertEquals(Risk.IN_DANGER, reportService.getDiabetesAssessmentLevel(patientSex, age, allNotesContent));

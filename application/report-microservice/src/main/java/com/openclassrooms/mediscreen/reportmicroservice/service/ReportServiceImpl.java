@@ -31,7 +31,7 @@ public class ReportServiceImpl implements ReportService {
      * @inheritDoc
      */
     @Override
-    public Risk getDiabetesAssessmentLevel(char patientSex, int age, List<String> allNotesContent) { //TODO : prepare test
+    public Risk getDiabetesAssessmentLevel(char patientSex, int age, final List<String> allNotesContent) { //TODO : prepare test
         int numberOfKeywordsInNotes = calculateKeywordsInNotesContent(allNotesContent);
         if (age>=30) {
             if (numberOfKeywordsInNotes<=1) {
@@ -62,13 +62,17 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
-    private int calculateKeywordsInNotesContent(List<String> allNotesContent) {
+    private int calculateKeywordsInNotesContent(final List<String> allNotesContent) {
         List<Keyword> keywords = keywordRepository.getAll();
-
-        //TODO
-
-
-
-        return 0;
+        int numberOfKeyword = 0;
+        for(Keyword keyword : keywords) {
+            for(String note : allNotesContent) {
+                if(note.contains(keyword.toString())) {
+                    numberOfKeyword++;
+                    break;
+                }
+            }
+        }
+        return numberOfKeyword;
     }
 }
