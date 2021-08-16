@@ -83,6 +83,24 @@ services:
     volumes:
       - note_microservice_container:/var/lib/note
 
+  report-microservice:
+    build:
+      context: ./
+      dockerfile: Dockerfile-report-microservice
+    image: report-microservice
+    container_name: mediscreeb_report_microservice
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: demo
+    ports:
+      - "8083:8083"
+    networks:
+      backend-network:
+        ipv4_address: 172.20.0.6
+    volumes:
+      - report_microservice_container:/var/lib/note
+
+
   webapp:
     depends_on:
       - patient-microservice
@@ -96,6 +114,7 @@ services:
       SPRING_PROFILES_ACTIVE : demo
       PATIENT_HOST : 172.20.0.2
       NOTE_HOST : 172.20.0.5
+      REPORT_HOST : 172.20.0.6
     ports:
       - "8080:8080"
     networks:
@@ -110,3 +129,4 @@ volumes:
   web_app_container:
   mongo_db_data_container:
   note_microservice_container:
+  report_microservice_container:

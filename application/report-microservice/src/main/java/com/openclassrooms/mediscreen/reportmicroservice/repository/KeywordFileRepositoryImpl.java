@@ -26,7 +26,7 @@ public class KeywordFileRepositoryImpl implements KeywordRepository {
      * Constructor.
      */
     public KeywordFileRepositoryImpl() {
-        filepath="keywords_test.txt";
+        filepath="src/main/resources/keywords.txt";
     }
 
     /**

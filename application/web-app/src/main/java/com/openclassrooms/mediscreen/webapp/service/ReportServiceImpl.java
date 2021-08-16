@@ -52,7 +52,17 @@ public class ReportServiceImpl implements ReportService {
             patientNotesContentOnly.add(note.getContent());
         }
 
-        String assessmentLevel = "risk"; //TODO : webclient
+        String assessmentLevel = webClientReport
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/assessment")
+                        .queryParam("patientSex", sex)
+                        .queryParam("age", age)
+                        .queryParam("allNotesContent", patientNotesContentOnly)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
 
         return "Patient : " + patient.getFamily() + " " + patient.getGiven()
                 + " (age : " + age

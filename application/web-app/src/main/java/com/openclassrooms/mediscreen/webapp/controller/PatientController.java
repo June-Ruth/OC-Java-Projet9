@@ -4,6 +4,7 @@ import com.openclassrooms.mediscreen.webapp.model.Note;
 import com.openclassrooms.mediscreen.webapp.model.Patient;
 import com.openclassrooms.mediscreen.webapp.service.NoteService;
 import com.openclassrooms.mediscreen.webapp.service.PatientService;
+import com.openclassrooms.mediscreen.webapp.service.ReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,10 @@ public class PatientController {
      * @see NoteService
      */
     private final NoteService noteService;
+    /**
+     * @see ReportService
+     */
+    private final ReportService reportService;
 
     /**
      * Public constructor.
@@ -36,9 +41,11 @@ public class PatientController {
      * @param noteService1 .
      */
     public PatientController(final PatientService patientService1,
-                             final NoteService noteService1) {
+                             final NoteService noteService1,
+                             final ReportService reportService1) {
         patientService = patientService1;
         noteService = noteService1;
+        reportService = reportService1;
     }
 
     /**
@@ -64,8 +71,10 @@ public class PatientController {
     public String getPatient(@PathVariable final Integer id,
                              final Model model) {
         LOGGER.info("Getting patient with id : " + id);
-        model.addAttribute("patient", patientService.findPatientById(id));
+        Patient patient = patientService.findPatientById(id);
+        model.addAttribute("patient", patient);
         model.addAttribute("noteList", noteService.getAllNoteOfOnePatient(id));
+        model.addAttribute("assessment", reportService.getDiabetesAssessmentByPatient(patient));
         return "patients/profile";
     }
 

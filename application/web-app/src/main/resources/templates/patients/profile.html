@@ -17,9 +17,12 @@
       <a href="assess.html" th:href="@{/assess}">Assessment</a>&nbsp;|&nbsp;
     </div>
   </div>
-  <div>
+  <div class="row">
     <h2 th:text="${patient.family}"></h2>
     <h2 th:text="${patient.given}"></h2>
+  </div>
+  <div>
+    <p th:text="${assessment}"></p>
   </div>
   <div class="row">
     <table class="table table-bordered">
@@ -53,6 +56,9 @@
       <a class="btn btn-danger btn-sm" th:href="@{/patients/delete/{id}(id=${patient.id})}">Delete</a>
     </div>
   </div>
+
+  <h3>Historical Notes</h3>
+
 
   <h3>Historical Notes</h3>
 

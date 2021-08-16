@@ -62,6 +62,12 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     * Calculate the number of keyword in selected notes content.
+     * Duplicates count for one only.
+     * @param allNotesContent set
+     * @return number of keyword detected
+     */
     private int calculateKeywordsInNotesContent(final List<String> allNotesContent) {
         List<Keyword> keywords = keywordRepository.getAll();
         int numberOfKeyword = 0;
