@@ -1,6 +1,5 @@
 package com.openclassrooms.mediscreen.webapp.controller;
 
-import com.openclassrooms.mediscreen.webapp.model.Note;
 import com.openclassrooms.mediscreen.webapp.model.Patient;
 import com.openclassrooms.mediscreen.webapp.service.NoteService;
 import com.openclassrooms.mediscreen.webapp.service.PatientService;
@@ -39,6 +38,7 @@ public class PatientController {
      * Public constructor.
      * @param patientService1 .
      * @param noteService1 .
+     * @param reportService1 .
      */
     public PatientController(final PatientService patientService1,
                              final NoteService noteService1,

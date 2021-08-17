@@ -36,6 +36,7 @@ public class ReportController {
     /**
      * Public constructor.
      * @param reportService1 .
+     * @param patientService1 .
      */
     public ReportController(final ReportService reportService1,
                             final PatientService patientService1) {
@@ -47,6 +48,7 @@ public class ReportController {
      * Generate list of the diabetes assessment of patients found by full name.
      * @param family of patient concerned
      * @param given of patient concerned.
+     * @param model .
      * @return View of the diabetes assessment of all patients found with full name
      */
     @GetMapping("/assess")

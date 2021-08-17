@@ -23,6 +23,7 @@ public class ReportServiceImpl implements ReportService {
 
     /**
      * Public constructor.
+     * @param keywordRepository1 .
      */
     public ReportServiceImpl(final KeywordRepository keywordRepository1) {
         keywordRepository = keywordRepository1;
@@ -32,28 +33,28 @@ public class ReportServiceImpl implements ReportService {
      * @inheritDoc
      */
     @Override
-    public Risk getDiabetesAssessmentLevel(char patientSex, int age, final List<String> allNotesContent) {
+    public Risk getDiabetesAssessmentLevel(final char patientSex, final int age, final List<String> allNotesContent) {
         LOGGER.info("Get Diabetes assessment level.");
         int numberOfKeywordsInNotes = calculateKeywordsInNotesContent(allNotesContent);
-        if (age>=30) {
-            if (numberOfKeywordsInNotes<=1) {
+        if (age >= 30) {
+            if (numberOfKeywordsInNotes <= 1) {
                 LOGGER.info("risk is " + Risk.NONE);
                 return Risk.NONE;
-            } else if (numberOfKeywordsInNotes<=5) {
+            } else if (numberOfKeywordsInNotes <= 5) {
                 LOGGER.info("risk is " + Risk.BORDERLINE);
                 return Risk.BORDERLINE;
-            } else if (numberOfKeywordsInNotes<=7) {
+            } else if (numberOfKeywordsInNotes <= 7) {
                 LOGGER.info("risk is " + Risk.IN_DANGER);
                 return Risk.IN_DANGER;
             } else {
                 LOGGER.info("risk is " + Risk.EARLY_ONSET);
                 return Risk.EARLY_ONSET;
             }
-        } else if (patientSex =='H') {
-            if (numberOfKeywordsInNotes<=2) {
+        } else if (patientSex == 'H') {
+            if (numberOfKeywordsInNotes <= 2) {
                 LOGGER.info("risk is " + Risk.NONE);
                 return Risk.NONE;
-            } else if (numberOfKeywordsInNotes<=4) {
+            } else if (numberOfKeywordsInNotes <= 4) {
                 LOGGER.info("risk is " + Risk.IN_DANGER);
                 return Risk.IN_DANGER;
             } else {
@@ -61,10 +62,10 @@ public class ReportServiceImpl implements ReportService {
                 return Risk.EARLY_ONSET;
             }
         } else {
-            if (numberOfKeywordsInNotes<=3) {
+            if (numberOfKeywordsInNotes <= 3) {
                 LOGGER.info("risk is " + Risk.NONE);
                 return Risk.NONE;
-            } else if (numberOfKeywordsInNotes<=6) {
+            } else if (numberOfKeywordsInNotes <= 6) {
                 LOGGER.info("risk is " + Risk.IN_DANGER);
                 return Risk.IN_DANGER;
             } else {
@@ -84,9 +85,9 @@ public class ReportServiceImpl implements ReportService {
         LOGGER.info("calculate number of keyword in " + allNotesContent);
         List<Keyword> keywords = keywordRepository.getAll();
         int numberOfKeyword = 0;
-        for(Keyword keyword : keywords) {
+        for (Keyword keyword : keywords) {
             String normalizedKeyword = normalizeString(keyword.toString());
-            for(String note : allNotesContent) {
+            for (String note : allNotesContent) {
                 String normalizedNote = normalizeString(note);
                 if (normalizedNote.toLowerCase().contains(normalizedKeyword)) {
                     numberOfKeyword++;

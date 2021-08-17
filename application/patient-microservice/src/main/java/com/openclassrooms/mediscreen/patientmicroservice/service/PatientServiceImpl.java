@@ -45,11 +45,11 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<Patient> findAllPatientsByFullName(final String family, final String given) {
         LOGGER.info("Finding all patient with family : " + family + " and given : " + given);
-        if((family!=null && !family.isBlank()) && (given!=null && !given.isBlank())) {
+        if ((family != null && !family.isBlank()) && (given != null && !given.isBlank())) {
             return patientRepository.findByFamilyContainingIgnoreCaseOrGivenContainingIgnoreCase(family, given);
-        } else if ((family==null || family.isBlank()) && (given!=null && !given.isBlank())) {
+        } else if ((family == null || family.isBlank()) && (given != null && !given.isBlank())) {
             return patientRepository.findByGivenContainingIgnoreCase(given);
-        } else if ((family!=null && !family.isBlank()) && (given==null || given.isBlank())) {
+        } else if ((family != null && !family.isBlank()) && (given == null || given.isBlank())) {
             return patientRepository.findByFamilyContainingIgnoreCase(family);
         } else {
             return findAllPatients();

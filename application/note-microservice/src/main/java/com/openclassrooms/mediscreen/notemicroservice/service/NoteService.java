@@ -21,7 +21,7 @@ public interface NoteService {
     List<Note> findAllNotesByPatientId(Integer patientId);
 
     /**
-     * Save a new note or update an existing one (depending on its id)
+     * Save a new note or update an existing one (depending on its id).
      * @param note to save
      * @return saved note
      */
