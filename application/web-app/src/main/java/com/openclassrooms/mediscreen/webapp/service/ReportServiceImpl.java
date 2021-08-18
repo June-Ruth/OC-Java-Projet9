@@ -30,6 +30,7 @@ public class ReportServiceImpl implements ReportService {
     /**
      * Public constructor.
      * @param webClientReport1 to call report microservice
+     * @param noteService1 .
      */
     public ReportServiceImpl(@Qualifier("getWebClientReport") final WebClient webClientReport1,
                              final NoteService noteService1) {
@@ -41,7 +42,7 @@ public class ReportServiceImpl implements ReportService {
      * @inheritDoc
      */
     @Override
-    public String getDiabetesAssessmentByPatient(Patient patient) {
+    public String getDiabetesAssessmentByPatient(final Patient patient) {
         LOGGER.info("Get diabetes assessment for patient " + patient.getFamily());
         int age = LocalDate.now().compareTo(patient.getDateOfBirth());
         char sex = patient.getSex();

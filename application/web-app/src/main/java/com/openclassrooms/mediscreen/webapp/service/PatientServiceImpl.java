@@ -52,7 +52,7 @@ public class PatientServiceImpl implements PatientService {
      * @inheritDoc
      */
     @Override
-    public List<Patient> findAllPatientsByFullName(String family, String given) {
+    public List<Patient> findAllPatientsByFullName(final String family, final String given) {
         LOGGER.info("Finding all patients with family : " + family + " and given : " + given);
         return webClientPatient
                 .get()

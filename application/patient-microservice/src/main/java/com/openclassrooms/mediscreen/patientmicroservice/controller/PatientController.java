@@ -50,7 +50,7 @@ public class PatientController {
     public List<Patient> getAllPatientsByFullName(@RequestParam(required = false) final String family,
                                                   @RequestParam(required = false) final String given) {
         LOGGER.info("Getting all patients with family : " + family + " and given : " + given);
-        if(family==null && given==null) {
+        if (family == null && given == null) {
             return patientService.findAllPatients();
         }
         return patientService.findAllPatientsByFullName(family, given);

@@ -73,6 +73,27 @@ public class PatientServiceTest {
         verify(patientRepository, times(1)).findByGivenContainingIgnoreCase("given");
     }
 
+    @Test
+    void findAllPatientsByFamilyNameBisTest() {
+        when(patientRepository.findByFamilyContainingIgnoreCase(anyString())).thenReturn(allPatients);
+        patientService.findAllPatientsByFullName("family", "");
+        verify(patientRepository, times(1)).findByFamilyContainingIgnoreCase("family");
+    }
+
+    @Test
+    void findAllPatientsByGivenNameTestBis() {
+        when(patientRepository.findByGivenContainingIgnoreCase(anyString())).thenReturn(allPatients);
+        patientService.findAllPatientsByFullName("", "given");
+        verify(patientRepository, times(1)).findByGivenContainingIgnoreCase("given");
+    }
+
+    @Test
+    void finAllPatientsTest() {
+        when(patientRepository.findAll()).thenReturn(allPatients);
+        patientService.findAllPatientsByFullName(null, null);
+        verify(patientRepository, times(1)).findAll();
+    }
+
 
     // FIND PATIENT BY ID //
 

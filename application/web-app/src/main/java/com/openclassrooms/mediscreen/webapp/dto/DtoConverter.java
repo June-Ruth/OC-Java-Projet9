@@ -2,7 +2,7 @@ package com.openclassrooms.mediscreen.webapp.dto;
 
 import com.openclassrooms.mediscreen.webapp.model.Patient;
 
-public class DtoConverter {
+public final class DtoConverter {
     /**
      * Private constructor.
      */

@@ -32,26 +32,42 @@ public class Keyword implements Comparable<Keyword> {
         keyword = keyword1.toLowerCase();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Keyword keyword1 = (Keyword) o;
         return keyword.equals(keyword1.keyword);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public int hashCode() {
         return Objects.hash(keyword);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
-    public int compareTo(Keyword keyword1) {
+    public int compareTo(final Keyword keyword1) {
         return keyword.compareTo(keyword1.keyword);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
-    public String toString(){
+    public String toString() {
         return keyword;
     }
 }
